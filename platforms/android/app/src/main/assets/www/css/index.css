@@ -1,0 +1,62 @@
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    box-sizing: border-box;
+}
+
+
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:white;
+    background-attachment:fixed;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:14px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+    text-align: center;
+}
+
+/* Portrait layout (default) */
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
+
+.container {
+  padding: 2em;
+}
+
+h1 {
+  font-size:24px;
+  font-weight:bold;
+  margin:1em 0;
+  overflow:visible;
+  padding:0px;
+  text-align:center;
+}
+
+img.logo {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+p.bold {
+  font-weight: bold;
+}
+
+.scan-area {
+  background: #ccc;
+  padding: 4em;
+  width: 100%;
+  font-weight: bold;
+  margin: 2em 0;
+}
+
