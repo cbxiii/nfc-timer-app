@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 var app = {
     // Application Constructor
     initialize: function() {
@@ -28,17 +10,54 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
      app.receivedEvent('deviceready');
-      console.log("ready  ")
+     console.log("ready  ")
+      
       // Read NDEF formatted NFC Tags
-      nfc.addTagDiscoveredListener (
+      nfc.readerMode(
+          nfc.FLAG_READER_NFC_A | nfc.FLAG_READER_NO_PLATFORM_SOUNDS, 
+          //nfcTag => console.log(JSON.stringify(nfcTag)),
+          //nfcTag => console.log(nfc.bytesToHexString(nfcTag.ndefMessage[0].payload));
+          nfcReadSuccess
+          ,
+          //nfcTag => console.log('connected to', nfc.bytesToHexString(nfcEvent.tag.id))
+          error => console.log('NFC reader mode failed', error)
+      );
+
+
+      function nfcReadSuccess(nfcTag) {
+
+        console.log("SCANNED");
+        console.log(nfcTag)
+        console.log(nfcTag.ndefMessage[0].payload);
+
+        var tagContent = nfcTag.ndefMessage[0].payload;
+
+        var buff = new Buffer(tagContent);
+        console.log("Tag data is " + buff.toString('utf8'));
+
+        //console.log("Tag data is " + tagContentString);
+      } 
+
+      
+
+     /* nfc.addTagDiscoveredListener (
           function (nfcEvent) {
+            
+              $(".scan-area").css("background", "lightgreen");
+              $("h2#waiting").html("Success");
+              $("p#scanned-info").html("Well done");
+            
+            console.log(nfcEvent);
+              
               var tag = nfcEvent.tag,
-                  ndefMessage = tag.ndefMessage;
+              ndefMessage = tag.ndefMessage;
+              //console.log(tag);
+              //console.log(ndefMessage);
       
               // dump the raw json of the message
               // note: real code will need to decode
               // the payload from each record
-              console.log (JSON.stringify(ndefMessage));
+              //console.log (JSON.stringify(ndefMessage));
       
               // assuming the first record in the message has
               // a payload that can be converted to a string.
@@ -50,7 +69,7 @@ var app = {
           function (error) { // error callback
               console.log("Error adding NDEF listener " + JSON.stringify(error));
           }
-      );
+      );*/
     },
 
     // Update DOM on a Received Event
